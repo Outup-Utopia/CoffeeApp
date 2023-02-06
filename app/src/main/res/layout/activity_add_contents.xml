@@ -44,7 +44,7 @@
 
             <!--Content Tittle-->
             <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/ContentTittleInputForAddContent"
+                    android:id="@+id/contentTitleInputForAddContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
@@ -53,11 +53,11 @@
                     app:hintEnabled="false">
 
                 <EditText
-                        android:id="@+id/ContentTittleEditForAddContent"
+                        android:id="@+id/contentTitleEditForAddContent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_edit_text01"
-                        android:hint="Tittle"
+                        android:hint="Title"
                         android:maxLines="1"
                         android:inputType="textPersonName|textCapWords"
                         android:padding="10dp"
@@ -69,17 +69,17 @@
 
             <!--Coffee Name-->
             <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/CoffeeNameInputForAddContent"
+                    android:id="@+id/coffeeNameInputForAddContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:layout_marginEnd="30dp"
-                    android:layout_below="@+id/ContentTittleInputForAddContent"
+                    android:layout_below="@+id/contentTitleInputForAddContent"
                     android:layout_marginTop="0dp"
                     app:hintEnabled="false">
 
                 <EditText
-                        android:id="@+id/CoffeeNameEditForAddContent"
+                        android:id="@+id/coffeeNameEditForAddContent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_edit_text01"
@@ -94,19 +94,19 @@
 
             <!--Size-->
             <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/SizeInputForAddSize"
+                    android:id="@+id/sizeInputForAddContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:layout_marginEnd="30dp"
                     android:layout_marginTop="10dp"
-                    android:layout_below="@id/CoffeeNameInputForAddContent"
+                    android:layout_below="@id/coffeeNameInputForAddContent"
                     app:hintEnabled="false"
 
-                >
+            >
 
                 <EditText
-                        android:id="@+id/SizeEditForAddContent"
+                        android:id="@+id/sizeEditForAddContent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Size"
@@ -118,28 +118,36 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <!--Option-->
-            <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/OptionInputForAddContent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_below="@id/SizeInputForAddSize"
-                    app:hintEnabled="false">
-
-                <EditText
-                        android:id="@+id/OptionEditForAddContent"
-                        android:layout_width="match_parent"
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                          xmlns:tools="http://schemas.android.com/tools"
+                          android:id="@+id/spinners"
+                          android:orientation="horizontal"
+                          android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:layout_below="@id/sizeInputForAddContent"
+            >
+                <Spinner
+                        android:id="@+id/optionNameSpinner"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:hint="Option Description"
-                        android:inputType="textMultiLine|textCapSentences"
-                        android:padding="10dp"
-                        android:textColor="@color/black"
-                         android:textColorHint="@color/grey"
-                        />
+                        android:layout_marginTop="10dp"/>
 
-            </com.google.android.material.textfield.TextInputLayout>
+                <Spinner
+                        android:id="@+id/optionValueSpinner"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"/>
+
+            </LinearLayout>
+
+            <ImageButton
+                    android:id="@+id/addSpinnerButton"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/spinners"
+                    android:src="@drawable/spinner_plus_button"
+            />
 
             <!--image-->
             <RelativeLayout
@@ -149,9 +157,9 @@
                     android:layout_marginStart="30dp"
                     android:layout_marginEnd="30dp"
                     android:layout_marginTop="10dp"
-                    android:layout_below="@id/OptionInputForAddContent"
-                    >
-                
+                    android:layout_below="@id/addSpinnerButton"
+            >
+
 
                 <!--back NO image-->
                 <ImageView
@@ -160,18 +168,18 @@
                         android:padding="20dp"
                         android:id="@+id/BackImageNone"
                         android:background="@color/purple_200"
-                        />
+                />
 
                 <!--中央に載せるテキスト画像-->
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="↑ Upload image"
-                    android:textAlignment="center"
-                    android:textColor="@color/white" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="↑ Upload image"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"/>
 
             </RelativeLayout>
 
