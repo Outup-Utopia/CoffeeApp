@@ -1,4 +1,7 @@
 package dev.outup.coffeeapp.domain.model
 
-class Coffee(val orderItem: String, val size: String, val options: List<Option>) : DomainModel {
+import dev.outup.coffeeapp.domain.enums.CoffeeSize
+import dev.outup.coffeeapp.domain.model.option.Option
+
+class Coffee(var id: String, val itemName: String, val size: CoffeeSize, val options: List<Option>) : DomainModel {
 }
