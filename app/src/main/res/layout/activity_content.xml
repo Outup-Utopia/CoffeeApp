@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="420dp"
+        android:layout_marginBottom="5dp"
+        app:cardElevation="0dp"
+        app:contentPadding="5dp">
+
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <RelativeLayout
+                android:id="@+id/ContentImage"
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:layout_marginEnd="5dp"
+                android:background="@color/grey">
+
+            <!--image View-->
+
+
+            <!--Progress Bar-->
+
+        </RelativeLayout>
+
+        <TextView
+                android:id="@+id/ContentTittle"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/FixBtn"
+                android:text="Content Tittle"
+                android:layout_below="@+id/ContentImage"
+                android:maxLines="1"/>
+
+        <TextView
+                android:id="@+id/ContentDescription"
+                style="@style/TextAppearance.MaterialComponents.Body2"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="Content Tittle"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/ContentTittle"
+                android:maxLines="1"/>
+
+        <TextView
+                android:id="@+id/date"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20XX/XX/XX"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:maxLines="1"/>
+
+        <ImageButton
+                android:id="@+id/FixBtn"
+                android:layout_width="24dp"
+                android:background="@android:color/transparent"
+                android:padding="5dp"
+                android:layout_height="24dp"
+                android:src="@drawable/fix_button"
+                android:layout_below="@id/ContentImage"
+                android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
