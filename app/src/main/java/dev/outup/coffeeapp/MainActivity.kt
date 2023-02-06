@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         skipButton.setOnClickListener {
-            val intent = Intent(this.applicationContext, ContentActivity::class.java)
+            val intent = Intent(this.applicationContext, MainContentsActivity::class.java)
             startActivity(intent)
         }
     }
