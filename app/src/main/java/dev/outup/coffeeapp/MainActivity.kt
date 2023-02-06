@@ -8,11 +8,23 @@ import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import dev.outup.coffeeapp.view.LoginActivity
-import dev.outup.coffeeapp.view.RegisterUserActivity
+import dev.outup.coffeeapp.domain.usecase.UserService
+import dev.outup.coffeeapp.infrastructure.repository.UserRepositoryImpl
+import dev.outup.coffeeapp.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var auth: FirebaseAuth
+    private val auth: FirebaseAuth = Firebase.auth
+    private val scope = CoroutineScope(Job() + Dispatchers.Main)
+
+    private val userService = UserService(UserRepositoryImpl)
+
+    private lateinit var loginJumpButton: Button
+    private lateinit var signUpJumpButton: Button
+    private lateinit var skipButton: Button
 
     /**
      * ログイン
@@ -21,25 +33,35 @@ class MainActivity : AppCompatActivity() {
      * A21DC217@dhw.ac.jp  pass:asyera221
      */
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Initialize Firebase Auth
-        auth = Firebase.auth
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val loginButton: Button = findViewById(R.id.LoginBtn)
-        loginButton.setOnClickListener {
+
+        loginJumpButton = findViewById(R.id.loginJumpButton)
+        signUpJumpButton = findViewById(R.id.signUpJumpButton)
+        skipButton = findViewById(R.id.skipButton)
+
+        loginJumpButton.setOnClickListener {
             val intent = Intent(this.applicationContext, LoginActivity::class.java)
             startActivity(intent)
         }
-        val createAccountButton: Button = findViewById(R.id.CreateAccountBtn)
-        createAccountButton.setOnClickListener {
+        signUpJumpButton.setOnClickListener {
             val intent = Intent(this.applicationContext, RegisterUserActivity::class.java)
             startActivity(intent)
         }
-        // Check if user is signed in (non-null) and update UI accordingly.
+        skipButton.setOnClickListener {
+            val intent = Intent(this.applicationContext, ContentActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
         val text: TextView = findViewById(R.id.SecondText)
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
-            text.text = "ログイン済みです"
+
+        if (auth.currentUser != null) {
+            scope.launch {
+                text.text = "${userService.getCurrentUserName()} でログイン済みです"
+            }
         } else {
             text.text = "ログインしていません"
         }
