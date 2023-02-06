@@ -21,36 +21,38 @@
                 android:layout_height="260dp"
                 android:background="@color/grey">
 
-            <!--image View-->
-
+            <ImageView
+                    android:id="@+id/contentPicture"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
             <!--Progress Bar-->
 
         </RelativeLayout>
 
         <TextView
-                android:id="@+id/ContentTittle"
+                android:id="@+id/contentTitle"
                 style="@style/TextAppearance.MaterialComponents.Headline4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_toStartOf="@+id/FixBtn"
+                android:layout_toStartOf="@+id/fixButton"
                 android:text="Content Tittle"
                 android:layout_below="@+id/ContentImage"
                 android:maxLines="1"/>
 
         <TextView
-                android:id="@+id/ContentDescription"
+                android:id="@+id/contentDiscription"
                 style="@style/TextAppearance.MaterialComponents.Body2"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:text="Content Tittle"
                 android:layout_marginTop="8dp"
-                android:layout_below="@+id/ContentTittle"
+                android:layout_below="@+id/contentTitle"
                 android:maxLines="1"/>
 
         <TextView
-                android:id="@+id/date"
+                android:id="@+id/postedDate"
                 style="@style/TextAppearance.MaterialComponents.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,7 +62,7 @@
                 android:maxLines="1"/>
 
         <ImageButton
-                android:id="@+id/FixBtn"
+                android:id="@+id/fixButton"
                 android:layout_width="50dp"
                 android:background="@android:color/transparent"
                 android:padding="5dp"

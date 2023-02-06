@@ -1,23 +1,43 @@
 package dev.outup.coffeeapp.view
 
+import android.content.ContentValues.TAG
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.ListAdapter
-import android.widget.ListView
+import android.util.Log
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import dev.outup.coffeeapp.MainActivity
 import dev.outup.coffeeapp.R
-import dev.outup.coffeeapp.domain.model.Content
-import dev.outup.coffeeapp.infrastructure.ContentAdapter
+import dev.outup.coffeeapp.domain.usecase.ContentService
+import dev.outup.coffeeapp.infrastructure.CustomAdapter
+import dev.outup.coffeeapp.infrastructure.repository.CoffeeRepositoryImpl
+import dev.outup.coffeeapp.infrastructure.repository.ContentRepositoryImpl
+import kotlinx.coroutines.*
 
 class ListContentsActivity : AppCompatActivity() {
+    private val auth: FirebaseAuth = Firebase.auth
+    private val contentService = ContentService(ContentRepositoryImpl, CoffeeRepositoryImpl)
+    private val scope = CoroutineScope(Job() + Dispatchers.Main)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_contents)
 
-        val contents = listOf(Content())
+        auth.currentUser ?: run {
+            val intent = Intent(this.applicationContext, MainActivity::class.java)
+            startActivity(intent)
+        }
 
-        val listView : ListView = findViewById(R.id.content_list)
-
-        val adapter: ListAdapter = ContentAdapter(this, contents)
+        val applicationContext = this.applicationContext
+        scope.async {
+            val contents = contentService.getTimeline(auth.currentUser!!.uid)
+            Log.d(TAG, "表示対象コンテンツ:")
+            Log.d(TAG, contents.toString())
+            val adapter = CustomAdapter(contents, applicationContext)
+            val recyclerView = findViewById<RecyclerView>(R.id.content_recycler)
+            recyclerView.adapter = adapter
+        }
     }
 }
