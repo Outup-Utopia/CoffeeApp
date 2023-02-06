@@ -1,41 +1,57 @@
 package dev.outup.coffeeapp.view
 
+import kotlinx.coroutines.launch
+import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
+import dev.outup.coffeeapp.MainActivity
 import dev.outup.coffeeapp.R
-import dev.outup.coffeeapp.databinding.ActivityLoginBinding
+import dev.outup.coffeeapp.domain.usecase.UserService
+import dev.outup.coffeeapp.infrastructure.repository.UserRepositoryImpl
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 
 class LoginActivity : AppCompatActivity() {
+    private val userService = UserService(UserRepositoryImpl)
+    private val scope = CoroutineScope(Job() + Dispatchers.Main)
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivityLoginBinding
+    private lateinit var loginButton: Button
+
+    private lateinit var emailInput: EditText
+    private lateinit var passwordInput: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_login)
 
-//        setSupportActionBar(binding.toolbar)
+        loginButton = findViewById(R.id.loginButton)
 
-//        val navController = findNavController(R.id.nav_host_fragment_content_login)
-//        appBarConfiguration = AppBarConfiguration(navController.graph)
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-//
-//        binding.fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-//        }
+        emailInput = findViewById(R.id.emailEditForLogin)
+        passwordInput = findViewById(R.id.passwordEditForLogin)
+
+        loginButton.setOnClickListener {
+            scope.launch {
+                login()
+            }
+        }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_login)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
+    private suspend fun login() {
+        val email: String = emailInput.text.toString()
+        val password: String = passwordInput.text.toString()
+        if (!userService.login(email, password)) {
+            Toast.makeText(
+                baseContext, "Authentication failed.",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        val intent = Intent(this.applicationContext, MainActivity::class.java)
+        startActivity(intent)
+        TODO("Main画面に戻る処理が仮で入れられている")
     }
 }

@@ -1,41 +1,60 @@
 package dev.outup.coffeeapp.view
 
+import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
+import dev.outup.coffeeapp.MainActivity
 import dev.outup.coffeeapp.R
-import dev.outup.coffeeapp.databinding.ActivityRegisterUserBinding
+import dev.outup.coffeeapp.domain.usecase.UserService
+import dev.outup.coffeeapp.infrastructure.repository.UserRepositoryImpl
+import kotlinx.coroutines.*
 
 class RegisterUserActivity : AppCompatActivity() {
+    private val userService = UserService(UserRepositoryImpl)
+    private val scope = CoroutineScope(Job() + Dispatchers.Main)
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivityRegisterUserBinding
+    private lateinit var registerButton: Button
+
+    private lateinit var userNameInput: EditText
+    private lateinit var emailInput: EditText
+    private lateinit var passwordInput: EditText
+    private lateinit var confirmPasswordInput: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_register_user)
 
-        binding = ActivityRegisterUserBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        registerButton = findViewById(R.id.registerButton)
 
-        setSupportActionBar(binding.toolbar)
+        userNameInput = findViewById(R.id.userNameEditForSignUp)
+        emailInput = findViewById(R.id.emailEditForSignUp)
+        passwordInput = findViewById(R.id.passwordEditForSignUp)
+        confirmPasswordInput = findViewById(R.id.confirmPasswordEdit)
 
-        val navController = findNavController(R.id.nav_host_fragment_content_register_user)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
-
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        registerButton.setOnClickListener {
+            scope.launch {
+                signUp()
+            }
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_register_user)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
+    private suspend fun signUp() {
+        coroutineScope {
+            val userName = userNameInput.text.toString()
+            val email = emailInput.text.toString()
+            val password = passwordInput.text.toString()
+            if (!userService.signUp(userName, email, password)) {
+                Toast.makeText(
+                    baseContext, "Authentication failed.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+        val intent = Intent(this.applicationContext, MainActivity::class.java)
+        startActivity(intent)
+        TODO("Main画面に戻る処理が仮で入れられている")
     }
 }
