@@ -75,7 +75,7 @@
                     android:layout_marginStart="30dp"
                     android:layout_marginEnd="30dp"
                     android:layout_below="@+id/ContentTittleInputForEditContent"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="0dp"
                     app:hintEnabled="false">
 
                 <EditText
@@ -83,7 +83,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_edit_text01"
-                        android:hint="email"
+                        android:hint="CoffeeName"
                         android:maxLines="1"
                         android:inputType="textPersonName|textCapWords"
                         android:textColor="@color/black"
@@ -101,14 +101,13 @@
                     android:layout_marginEnd="30dp"
                     android:layout_marginTop="10dp"
                     android:layout_below="@id/CoffeeNameInputForEditContent"
-                    app:passwordToggleEnabled="true"
                     app:hintEnabled="false">
 
                 <EditText
                         android:id="@+id/SizeEditForEditContent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Password"
+                        android:hint="Size"
                         android:inputType="textPersonName|textCapWords"
                         android:padding="10dp"
                         android:textColor="@color/black"
@@ -125,7 +124,6 @@
                     android:layout_marginEnd="30dp"
                     android:layout_marginTop="10dp"
                     android:layout_below="@id/SizeInputForEditSize"
-                    app:passwordToggleEnabled="true"
                     app:hintEnabled="false">
 
                 <EditText
@@ -155,17 +153,20 @@
                 <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/BackImageNone"/>
+                        android:padding="20dp"
+                        android:id="@+id/BackImageNone"
+                        android:background="@color/purple_200"/>
 
                 <!--中央に載せるテキスト画像-->
                 <TextView
-                        android:layout_centerInParent="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textAlignment="center"
+                        android:layout_centerInParent="true"
                         android:gravity="center"
+                        android:padding="10dp"
                         android:text="↑ Upload image"
-                        android:textColor="@color/grey"/>
+                        android:textAlignment="center"
+                        android:textColor="@color/white"/>
 
             </RelativeLayout>
 
@@ -174,8 +175,8 @@
                     android:id="@+id/UploadButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/OptionInputForEditContent"
-                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/imageInputForEditContent"
+                    android:layout_marginTop="70dp"
                     android:background="@drawable/shape_button01"
                     android:text="Finish Editing"
                     android:textColor="@color/white"/>
