@@ -11,13 +11,14 @@
 
     <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:outlineAmbientShadowColor="@color/black">
 
         <RelativeLayout
                 android:id="@+id/ContentImage"
                 android:layout_width="match_parent"
-                android:layout_height="280dp"
-                android:layout_marginEnd="5dp"
+                android:layout_height="260dp"
                 android:background="@color/grey">
 
             <!--image View-->
@@ -29,9 +30,10 @@
 
         <TextView
                 android:id="@+id/ContentTittle"
-                style="@style/TextAppearance.MaterialComponents.Headline6"
+                style="@style/TextAppearance.MaterialComponents.Headline4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:layout_toStartOf="@+id/FixBtn"
                 android:text="Content Tittle"
                 android:layout_below="@+id/ContentImage"
@@ -59,11 +61,12 @@
 
         <ImageButton
                 android:id="@+id/FixBtn"
-                android:layout_width="24dp"
+                android:layout_width="50dp"
                 android:background="@android:color/transparent"
                 android:padding="5dp"
-                android:layout_height="24dp"
-                android:src="@drawable/fix_button"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/fix_button02"
                 android:layout_below="@id/ContentImage"
                 android:layout_alignParentEnd="true"/>
 

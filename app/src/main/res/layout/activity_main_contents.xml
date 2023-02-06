@@ -35,11 +35,11 @@
 
         <ImageButton
                 android:id="@+id/LogoutBtn"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/logout"
+                android:src="@drawable/logout02"
                 android:layout_alignParentEnd="true"
                 android:background="@android:color/transparent"/>
 
@@ -47,7 +47,12 @@
 
     <!--Content View-->
 
-    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent"></ScrollView>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="56dp">
+
+    </ScrollView>
 
     <!--Add Content Bottom-->
 
